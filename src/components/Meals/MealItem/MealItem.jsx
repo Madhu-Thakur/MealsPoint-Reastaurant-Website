@@ -12,12 +12,14 @@ const MealItem = (props) => {
         <div className={classes.price}>{price}</div>
       </div>
       <div>
-        <MealAddButton id={props.id} />
+        <MealAddButton
+          id={props.id}
+          name={props.name}
+          price={props.price}
+        />
       </div>
     </li>
   );
 };
 
 export default MealItem;
-
- 

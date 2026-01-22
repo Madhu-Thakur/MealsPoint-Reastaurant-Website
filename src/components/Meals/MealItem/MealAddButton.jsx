@@ -1,11 +1,31 @@
+import { useContext, useRef } from 'react';
 import Input from '../../UI/Input';
+import CartContext from '../../../store/cart-context';
 import classes from './MealAddButton.module.css';
 
 const MealAddButton = (props) => {
+  const amountInputRef = useRef();
+  const cartCtx = useContext(CartContext);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const enteredAmount = amountInputRef.current.value;
+    const enteredAmountNumber = +enteredAmount;
+
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      amount: enteredAmountNumber,
+      price: props.price,
+    });
+  };
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={submitHandler}>
       <Input
-        label='Amount'
+        ref={amountInputRef}
+        label="Amount"
         input={{
           id: 'amount_' + props.id,
           type: 'number',
